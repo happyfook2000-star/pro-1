@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เกมทายตัวละครวรรณคดีไทย ม.1</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        prompt: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        thai: {
+                            gold: '#F59E0B',
+                            goldLight: '#FDE68A',
+                            goldDark: '#B45309',
+                            pink: '#EC4899',
+                            teal: '#14B8A6',
+                            purple: '#8B5CF6',
+                            bg: '#FFFBEB'
+                        }
+                    },
+                    animation: {
+                        'bounce-short': 'bounceShort 0.5s ease-in-out',
+                        'shake': 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both',
+                        'pulse-fast': 'pulse 0.8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        bounceShort: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-2px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(4px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-6px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(6px, 0, 0)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-8px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, #FFF7ED 0%, #FEF3C7 50%, #ECFDF5 100%);
+            min-height: 100vh;
+            user-select: none;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 3px solid rgba(245, 158, 11, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+        .btn-option {
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        .btn-option:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+        }
+        .btn-option:active:not(:disabled) {
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-3 md:p-6 overflow-x-hidden">
+
+    <!-- Container Utama -->
+    <div class="w-full max-w-2xl mx-auto">
+
+        <!-- Header / Thai Style Decorative Banner -->
+        <div class="text-center mb-4 relative">
+            <div class="inline-block bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-white px-6 py-2 rounded-full shadow-lg border-2 border-amber-200 animate-float">
+                <h1 class="text-xl md:text-2xl font-extrabold tracking-wide flex items-center gap-2">
+                    <i class="fa-solid font-sharp fa-crown text-yellow-200 text-2xl"></i>
+                    เกร็ดวรรณคดีไทย ม.1
+                    <i class="fa-solid font-sharp fa-crown text-yellow-200 text-2xl"></i>
+                </h1>
+            </div>
+            <p class="text-amber-800 text-xs md:text-sm mt-1 font-medium">เกมทายตัวละคร & บทบาทน่ารู้</p>
+        </div>
+
+        <!-- SCREEN 1: Welcome / Start Screen -->
+        <div id="start-screen" class="glass-card rounded-3xl p-6 md:p-8 text-center relative overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-200 rounded-full blur-2xl opacity-50"></div>
+            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-teal-200 rounded-full blur-2xl opacity-50"></div>
+
+            <div class="my-4 flex justify-center">
+                <div class="w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-b from-amber-100 to-amber-200 flex items-center justify-center p-3 border-4 border-amber-400 shadow-inner">
+                    <!-- Hanuman Intro SVG -->
+                    <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-md">
+                        <circle cx="100" cy="100" r="90" fill="#FFF8F0"/>
+                        <!-- White Monkey Character (Hanuman) -->
+                        <path d="M 60,110 Q 40,70 80,50 Q 100,40 120,50 Q 160,70 140,110 Q 100,160 60,110 Z" fill="#FFFFFF" stroke="#333" stroke-width="3"/>
+                        <circle cx="80" cy="85" r="8" fill="#333"/>
+                        <circle cx="120" cy="85" r="8" fill="#333"/>
+                        <circle cx="82" cy="83" r="3" fill="#FFF"/>
+                        <circle cx="122" cy="83" r="3" fill="#FFF"/>
+                        <!-- Crown / Chada Gold -->
+                        <path d="M 80,50 L 100,10 L 120,50 L 100,40 Z" fill="#F59E0B" stroke="#B45309" stroke-width="2"/>
+                        <circle cx="100" cy="10" r="5" fill="#EF4444"/>
+                        <!-- Smile -->
+                        <path d="M 85,115 Q 100,130 115,115" fill="none" stroke="#EF4444" stroke-width="4" stroke-linecap="round"/>
+                        <!-- Red Cheeks -->
+                        <circle cx="70" cy="100" r="8" fill="#FCA5A5" opacity="0.6"/>
+                        <circle cx="130" cy="100" r="8" fill="#FCA5A5" opacity="0.6"/>
+                        <!-- Earrings / Kuntol -->
+                        <circle cx="55" cy="95" r="6" fill="#F59E0B"/>
+                        <circle cx="145" cy="95" r="6" fill="#F59E0B"/>
+                    </svg>
+                </div>
+            </div>
+
+            <h2 class="text-2xl md:text-3xl font-extrabold text-amber-900 mb-2">รอบรู้ตัวละครไทย ม.1</h2>
+            <p class="text-gray-600 text-sm md:text-base mb-6 max-w-md mx-auto">
+                ทบทวนความรู้บทเรียน รามเกียรติ์ (ศึกมัยราพณ์), นิราศภูเขาทอง, โคลงโลกนิติ และสุภาษิตพระร่วง ทายถูกรับคะแนน ข้อละ 15 วินาที!
+            </p>
+
+            <div class="bg-amber-50 rounded-2xl p-4 mb-6 text-left border border-amber-200 text-xs md:text-sm text-amber-900 space-y-2">
+                <div class="flex items-center gap-2 font-semibold text-amber-800">
+                    <i class="fa-solid fa-star text-amber-500"></i> กติกาการเล่น:
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-clock text-amber-600 w-5"></i> มีเวลาตอบข้อละ 15 วินาที
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-check-circle text-emerald-600 w-5"></i> ตอบถูกได้ 1 คะแนน
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-volume-high text-indigo-600 w-5"></i> มีเสียงเอฟเฟกต์เพิ่มความสนุก (เปิดเสียงด้วยนะ)
+                </div>
+            </div>
+
+            <button id="btn-start" onclick="startGame()" class="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-xl rounded-2xl shadow-lg hover:shadow-xl transform transition hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3">
+                <i class="fa-solid fa-play"></i> เริ่มเล่นเกมเลย!
+            </button>
+        </div>
+
+        <!-- SCREEN 2: Quiz Play Area -->
+        <div id="quiz-screen" class="glass-card rounded-3xl p-5 md:p-7 hidden relative">
+            
+            <!-- Top Status Bar -->
+            <div class="flex justify-between items-center mb-4 bg-white/80 p-3 rounded-2xl border border-amber-200">
+                <div class="flex items-center gap-2">
+                    <span class="bg-amber-500 text-white font-bold px-3 py-1 rounded-xl text-xs md:text-sm shadow">
+                        ข้อที่ <span id="current-question-num">1</span>/<span id="total-questions-num">10</span>
+                    </span>
+                </div>
+                
+                <!-- Score Counter -->
+                <div class="flex items-center gap-2 bg-emerald-100 text-emerald-800 px-3 py-1 rounded-xl font-bold text-sm">
+                    <i class="fa-solid fa-trophy text-amber-500"></i>
+                    <span>คะแนน: <span id="current-score" class="text-emerald-700 text-base">0</span></span>
+                </div>
+            </div>
+
+            <!-- Timer Bar -->
+            <div class="mb-5">
+                <div class="flex justify-between items-center text-xs font-bold mb-1">
+                    <span class="text-amber-800 flex items-center gap-1">
+                        <i class="fa-solid fa-stopwatch text-amber-600"></i> เวลาที่เหลือ
+                    </span>
+                    <span id="timer-text" class="text-amber-900 font-extrabold text-sm">15s</span>
+                </div>
+                <div class="w-full bg-gray-200 h-3.5 rounded-full overflow-hidden p-0.5 border border-gray-300">
+                    <div id="timer-bar" class="bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <!-- Character Card (SVG Illustration + Clue) -->
+            <div class="bg-gradient-to-b from-amber-50/80 to-orange-50/80 rounded-2xl p-4 mb-5 border-2 border-amber-200 shadow-inner flex flex-col md:flex-row items-center gap-4">
+                <!-- SVG Avatar Box -->
+                <div id="character-svg-container" class="w-28 h-28 md:w-36 md:h-36 bg-white rounded-2xl p-2 shadow-md border-2 border-amber-300 flex-shrink-0 flex items-center justify-center relative overflow-hidden">
+                    <!-- Dynamic SVG injected via JS -->
+                </div>
+
+                <!-- Role Clue Box -->
+                <div class="flex-grow text-center md:text-left">
+                    <span class="inline-block bg-amber-200 text-amber-900 text-xs font-bold px-2.5 py-0.5 rounded-md mb-1">
+                        <i class="fa-solid fa-magnifying-glass"></i> คำใบ้บทบาทหน้าที่
+                    </span>
+                    <p id="character-hint" class="text-gray-800 font-medium text-sm md:text-base leading-relaxed">
+                        -- คำใบ้จะแสดงตรงนี้ --
+                    </p>
+                    <div id="source-work" class="mt-2 text-xs font-semibold text-teal-700 bg-teal-50 inline-block px-2 py-1 rounded-lg border border-teal-200">
+                        <!-- Source Literature -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Prompt -->
+            <p class="text-center font-bold text-gray-800 text-base md:text-lg mb-4">
+                จากภาพและคำใบ้ข้างต้น ตัวละครนี้มีชื่อว่าอะไร?
+            </p>
+
+            <!-- Options Grid -->
+            <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                <!-- Options buttons injected via JS -->
+            </div>
+
+            <!-- Feedback Message Banner -->
+            <div id="feedback-banner" class="hidden rounded-xl p-3 text-center font-bold text-sm md:text-base transition-all duration-300 flex items-center justify-center gap-2">
+                <!-- Feedback text via JS -->
+            </div>
+
+        </div>
+
+        <!-- SCREEN 3: Result / Summary Screen -->
+        <div id="result-screen" class="glass-card rounded-3xl p-6 md:p-8 text-center hidden relative overflow-hidden">
+            <div class="text-center mb-4">
+                <div class="inline-block p-4 bg-amber-100 rounded-full text-amber-600 mb-2 shadow-inner">
+                    <i class="fa-solid fa-award text-5xl"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-amber-900">สรุปผลการแข่งขัน!</h2>
+                <p class="text-gray-600 text-sm">น้องๆ ทำได้เยี่ยมยอดมากในการเรียนรู้ครั้งนี้</p>
+            </div>
+
+            <!-- Stars Rating -->
+            <div id="stars-container" class="flex justify-center gap-2 text-4xl md:text-5xl my-4">
+                <i class="fa-solid fa-star text-amber-300"></i>
+                <i class="fa-solid fa-star text-amber-300"></i>
+                <i class="fa-solid fa-star text-amber-300"></i>
+            </div>
+
+            <!-- Score Display Box -->
+            <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl p-5 my-4 shadow-lg border-2 border-amber-300">
+                <p class="text-sm font-medium opacity-90">คะแนนรวมทั้งหมด</p>
+                <div class="text-4xl md:text-5xl font-extrabold my-1">
+                    <span id="final-score">0</span> / <span id="final-total">10</span>
+                </div>
+                <p id="accuracy-text" class="text-xs font-semibold bg-white/20 inline-block px-3 py-1 rounded-full mt-1">
+                    คิดเป็น 0%
+                </p>
+            </div>
+
+            <!-- Teacher Praise Comment -->
+            <div class="bg-amber-50 rounded-2xl p-4 mb-6 border border-amber-200">
+                <p id="praise-title" class="font-bold text-amber-900 text-base mb-1">ยอดเยี่ยมมาก!</p>
+                <p id="praise-desc" class="text-gray-700 text-xs md:text-sm">
+                    น้องมีความเข้าใจเกี่ยวกับตัวละครในวรรณคดีชั้น ม.1 เป็นอย่างดีเยี่ยม
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="startGame()" class="flex-1 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold rounded-2xl shadow-md transition flex items-center justify-center gap-2 text-base">
+                    <i class="fa-solid fa-rotate-right"></i> เล่นใหม่อีกครั้ง
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-6 text-xs text-amber-800/80 font-medium">
+            สื่อการเรียนรู้กลุ่มสาระการเรียนรู้ภาษาไทย ชั้นมัธยมศึกษาปีที่ 1
+        </div>
+
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // ==========================================
+        // DATA: Character Database for Grade 7 (ม.1)
+        // ==========================================
+        const charactersData = [
+            {
+                id: 'hanuman',
+                name: 'หนุมาน',
+                hint: 'ทหารเอกของพระราม กายสีขาว เผือก มีกุณฑลขนเพชร สามารถหาวเป็นดาวเป็นเดือนได้ และหดตัวใหญ่โตได้',
+                work: 'วรรณคดี: รามเกียรติ์ (ตอน ศึกมัยราพณ์)',
+                distractors: ['สุครีพ', 'พาลี', 'องคต'],
+                svg: `
+                    <svg viewBox="0 0 120 120" class="w-full h-full">
+                        <circle cx="60" cy="60" r="52" fill="#F8FAFC" stroke="#94A3B8" stroke-width="3"/>
+                        <!-- Crown/Chada -->
+                        <path d="M 45,35 L 60,5 L 75,35 Z" fill="#F59E0B" stroke="#B45309" stroke-width="1.5"/>
+                        <circle cx="60" cy="5" r="3" fill="#EF4444"/>
+                        <!-- Head -->
+                        <path d="M 35,65 Q 25,40 60,32 Q 95,40 85,65 Q 60,95 35,65 Z" fill="#FFFFFF" stroke="#475569" stroke-width="2"/>
+                        <!-- Eyes -->
+                        <circle cx="48" cy="52" r="5" fill="#1E293B"/>
+                        <circle cx="72" cy="52" r="5" fill="#1E293B"/>
+                        <circle cx="49" cy="50" r="2" fill="#FFF"/>
+                        <circle cx="73" cy="50" r="2" fill="#FFF"/>
+                        <!-- Mouth/Smile -->
+                        <path d="M 50,72 Q 60,82 70,72" fill="none" stroke="#EF4444" stroke-width="3" stroke-linecap="round"/>
+                        <!-- Cheeks -->
+                        <circle cx="40" cy="62" r="5" fill="#FCA5A5" opacity="0.7"/>
+                        <circle cx="80" cy="62" r="5" fill="#FCA5A5" opacity="0.7"/>
+                        <!-- Kuntol (Earrings) -->
+                        <circle cx="28" cy="60" r="4" fill="#F59E0B"/>
+                        <circle cx="92" cy="60" r="4" fill="#F59E0B"/>
+                    </svg>
+                `
+            },
+            {
+                id: 'maiyarap',
+                name: 'มัยราพณ์',
+                hint: 'พญายักษ์ปกครองเมืองบาดาล มีเวทมนตร์สะกดทัพ เป่ายาสะกดให้กองทัพพระรามหลับ แล้วถอดดวงใจใส่แมลงภู่ซ่อนไว้ที่ยอดเขาตระกูลสิงขร',
+                work: 'วรรณคดี: รามเกียรติ์ (ตอน ศึกมัยราพณ์)',
+                distractors: ['ทศกัณฐ์', 'กุมภกรรณ', 'สหัสเดชะ'],
+                svg: `
+                    <svg viewBox="0 0 120 120" class="w-full h-full">
+                        <circle cx="60" cy="60" r="52" fill="#F0FDF4" stroke="#16A34A" stroke-width="3"/>
+                        <!-- Crown/Chada Yak -->
+                        <path d="M 40,38 L 60,3 L 80,38 Z" fill="#15803D" stroke="#166534" stroke-width="1.5"/>
+                        <circle cx="60" cy="3" r="4" fill="#F59E0B"/>
+                        <!-- Head Purple/Green Yak -->
+                        <path d="M 32,65 Q 25,38 60,35 Q 95,38 88,65 Q 60,95 32,65 Z" fill="#4ADE80" stroke="#15803D" stroke-width="2"/>
+                        <!-- Eyes (Fierce) -->
+                        <ellipse cx="46" cy="54" rx="6" ry="4" fill="#DC2626"/>
+                        <ellipse cx="74" cy="54" rx="6" ry="4" fill="#DC2626"/>
+                        <!-- Tusks -->
+                        <path d="M 44,72 L 40,82 L 48,76 Z" fill="#FFF" stroke="#333" stroke-width="1"/>
+                        <path d="M 76,72 L 80,82 L 72,76 Z" fill="#FFF" stroke="#333" stroke-width="1"/>
+                        <!-- Mouth -->
+                        <path d="M 44,72 Q 60,82 76,72" fill="none" stroke="#991B1B" stroke-width="3"/>
+                    </svg>
+                `
+            },
+            {
+                id: 'phra_ram',
+                name: 'พระราม',
+                hint: 'พระมหากษัตริย์แห่งอโยธยา เป็นร่างอวตารของพระนารายณ์ มีกายสีเขียว ทรงศรพราหมณ์ศาสตร์เป็นอาวุธคู่กาย',
+                work: 'วรรณคดี: รามเกียรติ์',
+                distractors: ['พระลักษณ์', 'พระพรต', 'พระสัตรุด'],
+                svg: `
+                    <svg viewBox="0 0 120 120" class="w-full h-full">
+                        <circle cx="60" cy="60" r="52" fill="#ECFDF5" stroke="#059669" stroke-width="3"/>
+                        <!-- Gold Chada Crown -->
+                        <path d="M 42,32 L 60,2 L 78,32 Z" fill="#F59E0B" stroke="#B45309" stroke-width="1.5"/>
+                        <circle cx="60" cy="2" r="3" fill="#10B981"/>
+                        <!-- Green Face -->
+                        <path d="M 35,62 Q 30,38 60,35 Q 90,38 85,62 Q 60,92 35,62 Z" fill="#10B981" stroke="#047857" stroke-width="2"/>
+                        <!-- Elegant Eyes -->
+                        <ellipse cx="48" cy="52" rx="5" ry="3" fill="#064E3B"/>
+                        <ellipse cx="72" cy="52" rx="5" ry="3" fill="#064E3B"/>
+                        <!-- Gentle Smile -->
+                        <path d="M 50,70 Q 60,78 70,70" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
+                        <!-- Tilaka Mark -->
+                        <path d="M 60,42 L 60,48" stroke="#F59E0B" stroke-width="2"/>
+                    </svg>
+                `
+            },
+            {
+                id: 'supannamatcha',
+                name: 'นางสุพรรณมัจฉา',
+                hint: 'ธิดาของทศกัณฐ์ ร่างกายท่อนบนเป็นนางผีเสื้อ/นางฟ้าผู้งดงาม ท่อนล่างเป็นปลา มีผิวกายสีทอง นำจองถนนจมทะเลตามคำสั่งทศกัณฐ์',
+                work: 'วรรณคดี: รามเกียรติ์',
+                distractors: ['นางเบญจกาย', 'นางมณโฑ', 'นางสีดา'],
+                svg: `
+                    <svg viewBox="0 0 120 120" class="w-full h-full">
+                        <circle cx="60" cy="60" r="52" fill="#FFF7ED" stroke="#F97316" stroke-width="3"/>
+                        <!-- Fish Tail -->
+                        <path d="M 60,80 Q 85,95 95,80 Q 90,110 60,95 Z" fill="#F59E0B" stroke="#D97706" stroke-width="1.5"/>
+                        <!-- Mermaid Body/Head -->
+                        <path d="M 40,58 Q 35,35 60,32 Q 85,35 80,58 Q 60,85 40,58 Z" fill="#FFEDD5" stroke="#EA580C" stroke-width="2"/>
+                        <!-- Long Black Hair -->
+                        <path d="M 35,45 Q 25,65 30,80 M 85,45 Q 95,65 90,80" fill="none" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
+                        <!-- Eyes -->
+                        <circle cx="50" cy="48" r="4" fill="#431407"/>
+                        <circle cx="70" cy="48" r="4" fill="#431407"/>
+                        <!-- Crown/Flower -->
+                        <circle cx="60" cy="30" r="6" fill="#EC4899"/>
+                        <!-- Smile -->
+                        <path d="M 53,62 Q 60,68 67,62" fill="none" stroke="#EC4899" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                `
+            },
+            {
+                id: 'sunthorn_phu',
+                name: 'สุนทรภู่',
+                hint: 'มหากวีเอก 4 แผ่นดิน ผู้ประพันธ์วรรณคดีเรื่อง "นิราศภูเขาทอง" และ "พระอภัยมณี" ได้รับยกย่องจาก UNESCO ให้เป็นบุคคลสำคัญของโลกด้านวัฒนธรรม',
+                work: 'วรรณคดี: นิราศภูเขาทอง (ผู้แต่ง)',
+                distractors: ['ศรีปราชญ์', 'พระยาตรัง', 'นายนรินทรธิเบศร์'],
+                svg: `
+                    <svg viewBox="0 0 120 120" class="w-full h-full">
+                        <circle cx="60" cy="60" r="52" fill="#FEF3C7" stroke="#D97706" stroke-width="3"/>
+                        <!-- Thai Traditional Hair Topknot -->
+                        <circle cx="60" cy="22" r="10" fill="#292524"/>
+                        <!-- Head -->
+                        <circle cx="60" cy="55" r="28" fill="#FDE68A" stroke="#B45309" stroke-width="2"/>
+                        <!-- Traditional Glasses / Kind Eyes -->
+                        <circle cx="50" cy="52" r="6" fill="none" stroke="#78350F" stroke-width="2"/>
+                        <circle cx="70" cy="52" r="6" fill="none" stroke="#78350F" stroke-width="2"/>
+                        <line x1="56" y1="52" x2="64" y2="52" stroke="#78350F" stroke-width="2"/>
+                        <!-- Smile -->
+                        <path d="M 52,68 Q 60,76 68,68" fill="none" stroke="#92400E" stroke-width="2.5" stroke-linecap="round"/>
+                        <!-- Quill / Book Decor -->
+                        <path d="M 85,85 L 100,70 L 95,65 Z" fill="#FFF" stroke="#451A03" stroke-width="1.5"/>
+                    </svg>
+                `
+            },
+            {
+                id: 'matchanu',
+                name: 'มัจฉานุ',
+                hint: 'บุตรของหนุมานกับนางสุพรรณมัจฉา ร่างกายท่อนบนเป็นลิงขาว ท่อนล่างเป็นปลา เป็นลูกเลี้ยงของมัยราพณ์ เฝ้าด่านดงพิพะลี',
+                work: 'วรรณคดี: รามเกียรติ์ (ตอน ศึกมัยราพณ์)',
+                distractors: ['นิลพัท', 'ชมพูพาน', 'องคต'],
+                svg: `
+                    <svg viewBox="0 0 120 120" class="w-full h-full">
+                        <circle cx="60" cy="60" r="52" fill="#F0FDFA" stroke="#0D9488" stroke-width="3"/>
+                        <!-- Fish Tail (Bottom) -->
+                        <path d="M 60,78 Q 80,90 88,78 Q 82,108 60,92 Z" fill="#2DD4BF" stroke="#0F766E" stroke-width="1.5"/>
+                        <!-- White Monkey Head -->
+                        <path d="M 38,58 Q 30,35 60,30 Q 90,35 82,58 Q 60,88 38,58 Z" fill="#FFFFFF" stroke="#0F766E" stroke-width="2"/>
+                        <!-- Cute Eyes -->
+                        <circle cx="48" cy="48" r="4" fill="#111827"/>
+                        <circle cx="72" cy="48" r="4" fill="#111827"/>
+                        <!-- Smile -->
+                        <path d="M 52,64 Q 60,72 68,64" fill="none" stroke="#0D9488" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                `
+            },
+            {
+                id: 'thotsakan',
+                name: 'ทศกัณฐ์',
+                hint: 'พญายักษ์แห่งเมืองลงกา มี 10 หน้า 20 มือ กายสีเขียว ลักพาตัวนางสีดาไปยังเมืองลงกา เป็นชนวนเหตุของศึกสงคราม',
+                work: 'วรรณคดี: รามเกียรติ์',
+                distractors: ['มัยราพณ์', 'กุมภกรรณ', 'สหัสเดชะ'],
+                svg: `
+                    <svg viewBox="0 0 120 120" class="w-full h-full">
+                        <circle cx="60" cy="60" r="52" fill="#DCFCE7" stroke="#15803D" stroke-width="3"/>
+                        <!-- Mini Heads on Top (Representation of 10 faces) -->
+                        <circle cx="50" cy="18" r="6" fill="#22C55E"/>
+                        <circle cx="60" cy="12" r="7" fill="#22C55E"/>
+                        <circle cx="70" cy="18" r="6" fill="#22C55E"/>
+                        <!-- Main Green Face -->
+                        <path d="M 35,62 Q 28,35 60,30 Q 92,35 85,62 Q 60,92 35,62 Z" fill="#22C55E" stroke="#14532D" stroke-width="2"/>
+                        <!-- Fierce Crown -->
+                        <path d="M 42,32 L 60,20 L 78,32 Z" fill="#F59E0B" stroke="#B45309" stroke-width="1.5"/>
+                        <!-- Tusks -->
+                        <path d="M 46,70 L 42,78 L 50,74 Z" fill="#FFF"/>
+                        <path d="M 74,70 L 78,78 L 70,74 Z" fill="#FFF"/>
+                        <!-- Eyes -->
+                        <ellipse cx="48" cy="50" rx="5" ry="4" fill="#7F1D1D"/>
+                        <ellipse cx="72" cy="50" rx="5" ry="4" fill="#7F1D1D"/>
+                    </svg>
+                `
+            },
+            {
+                id: 'piphek',
+                name: 'พิเภก',
+                hint: 'น้องชายของทศกัณฐ์ เชี่ยวชาญการโหราศาสตร์และทำนายดวงชะตา ถูกทศกัณฐ์ขับไล่จึงมาจงรักภักดีและคอยบอกกลศึกให้แก่พระราม',
+                work: 'วรรณคดี: รามเกียรติ์',
+                distractors: ['ทศกัณฐ์', 'มัยราพณ์', 'ขร'],
+                svg: `
+                    <svg viewBox="0 0 120 120" class="w-full h-full">
+                        <circle cx="60" cy="60" r="52" fill="#FEF2F2" stroke="#EF4444" stroke-width="3"/>
+                        <!-- Chada Crown Gold -->
+                        <path d="M 44,32 L 60,5 L 76,32 Z" fill="#F59E0B" stroke="#B45309" stroke-width="1.5"/>
+                        <!-- Green/Redish Yak Face -->
+                        <path d="M 36,60 Q 30,35 60,32 Q 90,35 84,60 Q 60,90 36,60 Z" fill="#10B981" stroke="#047857" stroke-width="2"/>
+                        <!-- Astrologer Glasses / Wise Eyes -->
+                        <circle cx="48" cy="50" r="6" fill="#1E293B"/>
+                        <circle cx="72" cy="50" r="6" fill="#1E293B"/>
+                        <!-- Mild Tusks -->
+                        <path d="M 48,68 L 46,73 L 50,71 Z" fill="#FFF"/>
+                        <path d="M 72,68 L 74,73 L 70,71 Z" fill="#FFF"/>
+                        <path d="M 50,68 Q 60,74 70,68" fill="none" stroke="#991B1B" stroke-width="2"/>
+                    </svg>
+                `
+            },
+            {
+                id: 'phra_lak',
+                name: 'พระลักษณ์',
+                hint: 'พระอนุชาผู้จงรักภักดีของพระราม มีกายสีทอง คอยสู้รบเคียงบ่าเคียงไหล่ร่วมกับพระรามในทุกศึกสงคราม',
+                work: 'วรรณคดี: รามเกียรติ์',
+                distractors: ['พระราม', 'พิเภก', 'พรต'],
+                svg: `
+                    <svg viewBox="0 0 120 120" class="w-full h-full">
+                        <circle cx="60" cy="60" r="52" fill="#FEF3C7" stroke="#F59E0B" stroke-width="3"/>
+                        <!-- Crown Gold -->
+                        <path d="M 42,32 L 60,2 L 78,32 Z" fill="#F59E0B" stroke="#B45309" stroke-width="1.5"/>
+                        <!-- Gold Face -->
+                        <path d="M 35,62 Q 30,38 60,35 Q 90,38 85,62 Q 60,92 35,62 Z" fill="#FBBF24" stroke="#D97706" stroke-width="2"/>
+                        <!-- Eyes -->
+                        <ellipse cx="48" cy="52" rx="4" ry="3" fill="#78350F"/>
+                        <ellipse cx="72" cy="52" rx="4" ry="3" fill="#78350F"/>
+                        <!-- Smile -->
+                        <path d="M 50,70 Q 60,78 70,70" fill="none" stroke="#B45309" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                `
+            },
+            {
+                id: 'phra_ruang',
+                name: 'พระร่วง',
+                hint: 'กษัตริย์ผู้มีวาจาสิทธิ์ พระราชนิพนธ์คำสอนเรื่อง "สุภาษิตพระร่วง" มุ่งสอนการดำเนินชีวิต การวางตัว และการสมาคมในสังคม',
+                work: 'วรรณคดี: สุภาษิตพระร่วง',
+                distractors: ['พ่อขุนรามคำแหง', 'พระมหาธรรมราชาที่ 1', 'สมเด็จพระนเรศวร'],
+                svg: `
+                    <svg viewBox="0 0 120 120" class="w-full h-full">
+                        <circle cx="60" cy="60" r="52" fill="#FFFBEB" stroke="#B45309" stroke-width="3"/>
+                        <!-- Ancient Thai King Headdress -->
+                        <path d="M 45,30 L 60,5 L 75,30 Z" fill="#D97706" stroke="#78350F" stroke-width="1.5"/>
+                        <!-- Face -->
+                        <circle cx="60" cy="58" r="26" fill="#FDE68A" stroke="#B45309" stroke-width="2"/>
+                        <!-- Majestic Crown detail -->
+                        <path d="M 40,42 Q 60,35 80,42" fill="none" stroke="#D97706" stroke-width="3"/>
+                        <!-- Eyes -->
+                        <circle cx="50" cy="54" r="3" fill="#451A03"/>
+                        <circle cx="70" cy="54" r="3" fill="#451A03"/>
+                        <!-- Wise Mouth -->
+                        <path d="M 52,68 Q 60,74 68,68" fill="none" stroke="#78350F" stroke-width="2"/>
+                    </svg>
+                `
+            }
+        ];
+
+        // ==========================================
+        // GAME STATE VARIABLES
+        // ==========================================
+        let shuffledQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timer = null;
+        let timeLeft = 15;
+        const TOTAL_QUESTIONS = 10;
+        let isAnsweringAllowed = true;
+
+        // Sound System using Web Audio API (No external sound assets required)
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'correct') {
+                // Happy chord chime
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, now); // C5
+                osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.1); // E5
+                osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.2); // G5
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+                osc.start(now);
+                osc.stop(now + 0.4);
+            } else if (type === 'wrong') {
+                // Low error buzz
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(180, now);
+                osc.frequency.linearRampToValueAtTime(110, now + 0.25);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'timeout') {
+                // Timeout double alert
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.setValueAtTime(200, now + 0.15);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            }
+        }
+
+        // ==========================================
+        // GAME LOGIC FUNCTIONS
+        // ==========================================
+
+        function startGame() {
+            // Reset state
+            score = 0;
+            currentQuestionIndex = 0;
+            document.getElementById('current-score').innerText = score;
+            
+            // Shuffle questions and select subset
+            shuffledQuestions = [...charactersData].sort(() => Math.random() - 0.5).slice(0, TOTAL_QUESTIONS);
+
+            // Hide other screens & show quiz screen
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+
+            document.getElementById('total-questions-num').innerText = TOTAL_QUESTIONS;
+
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex >= TOTAL_QUESTIONS) {
+                endGame();
+                return;
+            }
+
+            isAnsweringAllowed = true;
+            const currentQ = shuffledQuestions[currentQuestionIndex];
+
+            // Update Header Stats
+            document.getElementById('current-question-num').innerText = currentQuestionIndex + 1;
+            
+            // Hide feedback banner
+            const feedbackBanner = document.getElementById('feedback-banner');
+            feedbackBanner.className = "hidden rounded-xl p-3 text-center font-bold text-sm md:text-base transition-all duration-300 flex items-center justify-center gap-2";
+
+            // Render SVG Illustration & Clues
+            document.getElementById('character-svg-container').innerHTML = currentQ.svg;
+            document.getElementById('character-hint').innerText = currentQ.hint;
+            document.getElementById('source-work').innerText = currentQ.work;
+
+            // Generate Options (Correct + 3 Distractors shuffled)
+            const options = [currentQ.name, ...currentQ.distractors].sort(() => Math.random() - 0.5);
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            options.forEach((optText) => {
+                const btn = document.createElement('button');
+                btn.className = `btn-option w-full py-3.5 px-4 bg-white hover:bg-amber-50 text-amber-950 font-bold rounded-2xl border-2 border-amber-200 text-sm md:text-base text-left flex items-center justify-between group`;
+                btn.onclick = () => checkAnswer(optText, currentQ.name, btn);
+                btn.innerHTML = `
+                    <span>${optText}</span>
+                    <i class="fa-solid fa-circle-dot text-amber-300 group-hover:text-amber-500 transition"></i>
+                `;
+                optionsContainer.appendChild(btn);
+            });
+
+            // Start 15s Countdown Timer
+            resetTimer();
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            timeLeft = 15;
+            updateTimerDisplay();
+
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    handleTimeout();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const timerText = document.getElementById('timer-text');
+            const timerBar = document.getElementById('timer-bar');
+            
+            timerText.innerText = `${timeLeft}s`;
+            const percentage = (timeLeft / 15) * 100;
+            timerBar.style.width = `${percentage}%`;
+
+            // Change color when time is running out
+            if (timeLeft <= 4) {
+                timerBar.className = "bg-gradient-to-r from-red-500 to-rose-600 h-full rounded-full transition-all duration-1000 ease-linear animate-pulse-fast";
+                timerText.className = "text-red-600 font-extrabold text-sm animate-bounce";
+            } else {
+                timerBar.className = "bg-gradient-to-r from-emerald-400 to-emerald-500 h-full rounded-full transition-all duration-1000 ease-linear";
+                timerText.className = "text-amber-900 font-extrabold text-sm";
+            }
+        }
+
+        function checkAnswer(selectedOpt, correctName, clickedBtn) {
+            if (!isAnsweringAllowed) return;
+            isAnsweringAllowed = false;
+            clearInterval(timer);
+
+            const optionsButtons = document.querySelectorAll('#options-container button');
+            const feedbackBanner = document.getElementById('feedback-banner');
+
+            if (selectedOpt === correctName) {
+                // Correct Answer
+                score++;
+                document.getElementById('current-score').innerText = score;
+                playSound('correct');
+
+                clickedBtn.className = "btn-option w-full py-3.5 px-4 bg-emerald-500 text-white font-bold rounded-2xl border-2 border-emerald-600 text-sm md:text-base text-left flex items-center justify-between shadow-lg animate-bounce-short";
+                clickedBtn.innerHTML = `<span>${selectedOpt}</span> <i class="fa-solid fa-circle-check text-white text-lg"></i>`;
+
+                feedbackBanner.className = "rounded-xl p-3 text-center font-bold text-sm md:text-base bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center justify-center gap-2 animate-bounce-short";
+                feedbackBanner.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 text-xl"></i> ถูกต้องแล้วครับ! รับ +1 คะแนน`;
+            } else {
+                // Wrong Answer
+                playSound('wrong');
+
+                clickedBtn.className = "btn-option w-full py-3.5 px-4 bg-rose-500 text-white font-bold rounded-2xl border-2 border-rose-600 text-sm md:text-base text-left flex items-center justify-between shadow-lg animate-shake";
+                clickedBtn.innerHTML = `<span>${selectedOpt}</span> <i class="fa-solid fa-circle-xmark text-white text-lg"></i>`;
+
+                // Highlight correct one
+                optionsButtons.forEach(btn => {
+                    if (btn.innerText.trim() === correctName) {
+                        btn.className = "btn-option w-full py-3.5 px-4 bg-emerald-100 text-emerald-900 font-bold rounded-2xl border-2 border-emerald-500 text-sm md:text-base text-left flex items-center justify-between";
+                    }
+                });
+
+                feedbackBanner.className = "rounded-xl p-3 text-center font-bold text-sm md:text-base bg-rose-100 text-rose-800 border border-rose-300 flex items-center justify-center gap-2";
+                feedbackBanner.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600 text-xl"></i> ยังไม่ถูกต้อง! คำตอบที่ถูกคือ "${correctName}"`;
+            }
+
+            // Disable all option buttons
+            optionsButtons.forEach(btn => btn.disabled = true);
+
+            // Wait 2 seconds before next question
+            setTimeout(() => {
+                currentQuestionIndex++;
+                loadQuestion();
+            }, 2000);
+        }
+
+        function handleTimeout() {
+            if (!isAnsweringAllowed) return;
+            isAnsweringAllowed = false;
+
+            playSound('timeout');
+            const currentQ = shuffledQuestions[currentQuestionIndex];
+            const optionsButtons = document.querySelectorAll('#options-container button');
+            const feedbackBanner = document.getElementById('feedback-banner');
+
+            // Highlight correct answer
+            optionsButtons.forEach(btn => {
+                if (btn.innerText.trim() === currentQ.name) {
+                    btn.className = "btn-option w-full py-3.5 px-4 bg-emerald-100 text-emerald-900 font-bold rounded-2xl border-2 border-emerald-500 text-sm md:text-base text-left flex items-center justify-between";
+                }
+                btn.disabled = true;
+            });
+
+            feedbackBanner.className = "rounded-xl p-3 text-center font-bold text-sm md:text-base bg-amber-100 text-amber-900 border border-amber-300 flex items-center justify-center gap-2";
+            feedbackBanner.innerHTML = `<i class="fa-solid fa-hourglass-end text-amber-600 text-xl"></i> หมดเวลา! คำตอบที่ถูกต้องคือ "${currentQ.name}"`;
+
+            setTimeout(() => {
+                currentQuestionIndex++;
+                loadQuestion();
+            }, 2000);
+        }
+
+        function endGame() {
+            clearInterval(timer);
+
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('final-total').innerText = TOTAL_QUESTIONS;
+
+            const percentage = Math.round((score / TOTAL_QUESTIONS) * 100);
+            document.getElementById('accuracy-text').innerText = `คิดเป็น ${percentage}%`;
+
+            // Calculate Stars and Praise Comment
+            const starsContainer = document.getElementById('stars-container');
+            const praiseTitle = document.getElementById('praise-title');
+            const praiseDesc = document.getElementById('praise-desc');
+
+            if (score >= 8) {
+                // 3 Stars
+                starsContainer.innerHTML = `
+                    <i class="fa-solid fa-star text-amber-400 drop-shadow"></i>
+                    <i class="fa-solid fa-star text-amber-400 drop-shadow"></i>
+                    <i class="fa-solid fa-star text-amber-400 drop-shadow"></i>
+                `;
+                praiseTitle.innerText = "เก่งมากระดับเซียนวรรณคดี! 🏆";
+                praiseDesc.innerText = "น้องมีความรู้ความเข้าใจในตัวละครวรรณคดี ม.1 อย่างแตกฉานและแม่นยำมาก รับ 3 ดาวไปเลย!";
+            } else if (score >= 5) {
+                // 2 Stars
+                starsContainer.innerHTML = `
+                    <i class="fa-solid fa-star text-amber-400 drop-shadow"></i>
+                    <i class="fa-solid fa-star text-amber-400 drop-shadow"></i>
+                    <i class="fa-regular fa-star text-amber-300"></i>
+                `;
+                praiseTitle.innerText = "ทำได้ดีมากครับ! 👍";
+                praiseDesc.innerText = "น้องมีความรู้ตัวละครวรรณคดีไทยอยู่ในเกณฑ์ดีเลย ทบทวนอีกนิดรับรองได้คะแนนเต็มแน่นอน!";
+            } else {
+                // 1 Star
+                starsContainer.innerHTML = `
+                    <i class="fa-solid fa-star text-amber-400 drop-shadow"></i>
+                    <i class="fa-regular fa-star text-amber-300"></i>
+                    <i class="fa-regular fa-star text-amber-300"></i>
+                `;
+                praiseTitle.innerText = "พยายามได้ดีแล้วครับ! ✌️";
+                praiseDesc.innerText = "อย่าพึ่งท้อนะ! ลองกดเล่นอีกรอบเพื่อทบทวนเนื้อหาตัวละครและบทบาทในวรรณคดี ม.1 ได้เสมอ";
+            }
+        }
+    </script>
+</body>
+</html>
